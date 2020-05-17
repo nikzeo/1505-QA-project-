@@ -41,13 +41,15 @@ public class CustomerDB {
 		}
 	}
 
-	public void updateCustomer(String fName, String lName, int cid) throws SQLException {
-		stmt.executeUpdate(
-				"UPDATE customer SET first_name = '" + fName + "', last_name = '" + lName + "' WHERE cid = " + cid +"");
-	}
+	public void updateCustomer(int customer_id2, String firstname1, String lastname1, String email1) throws SQLException {
+		
+		String upt = "UPDATE customers SET firstname = '" + firstname1 + "', lastname = '" + lastname1 + "', email = '" + email1 + "'WHERE customer_id = '" + customer_id2 + "'";    
+		stmt.executeUpdate(upt); 
 
+	}
+			
 	public void deleteCustomer(int customer_id) throws SQLException {
-		String delete = "DELETE FROM customers WHERE customer_id = " + customer_id + ";";
+		String delete = "DELETE FROM customers WHERE customer_id = " + customer_id + "";
 		stmt.executeUpdate(delete);
 	}}
 

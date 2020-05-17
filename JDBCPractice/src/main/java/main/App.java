@@ -49,9 +49,27 @@ public class App {
 					db.deleteCustomer(customer_id1);
 					break;
 					
+				case "update":
+					
+					System.out.println("Enter ID ");
+					int customer_id2 = scan.nextInt();
+					scan.nextLine();
+					
+					System.out.println("Enter Updated First Name ");
+					String firstname1 = scan.nextLine();
+					
+					System.out.println("Enter Updated Last Name ");
+					String lastname1 = scan.nextLine();
+					
+					System.out.println("Enter Updated Email ");
+					String email1 = scan.nextLine();
+							
+					db.updateCustomer(customer_id2, firstname1, lastname1, email1);	
+					System.out.println("Update Succesful!");
+					
 
-				default:
-					System.out.println("No matching case");
+//				default:
+//					System.out.println("No matching case");
 
 				}
 
@@ -68,7 +86,7 @@ public class App {
 	}
 
 	private static String getAction() {
-		System.out.println("Type 'create' to create, 'print' to print, 'delete' to delete or 'quit' to quit.");
+		System.out.println("Type 'create' to create, 'print' to print, 'delete' to delete, 'update' to update or 'quit' to quit.");
 		return scan.nextLine().toLowerCase();
 	}
 
