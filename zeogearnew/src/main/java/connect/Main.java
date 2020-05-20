@@ -9,8 +9,8 @@ public class Main {
 		
 	public static void main(String[] args) throws SQLException { 
 		// TODO Auto-generated method stub
-		CustomerInput customerInput = new CustomerInput("jake", "batham");
-		customerInput.startingSelection();
+		CustomerInput customerInput = new CustomerInput();
+		customerInput.showStartingSelection();
 		//CustomerInput.startingSelection();
 	}
 	
