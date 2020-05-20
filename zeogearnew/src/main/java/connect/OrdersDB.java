@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import connect.ClassConfig;
+
 public class OrdersDB {
 
 	private Connection conn;
@@ -27,21 +29,21 @@ public class OrdersDB {
 
 	public void create3
 	
-	(int order_id) throws SQLException {
+	(int customer_id, int product_id, int quantity) throws SQLException {
 		this.stmt = conn.createStatement();
-		String create3 = "INSERT INTO orders (order_id) VALUES (" + order_id + ")";
+		String create3 = "INSERT INTO orders (customer_id, product_id, quantity) VALUES (" + customer_id + ", " + product_id + "," + quantity + ")";
 		stmt.executeUpdate(create3);
 	} 
 
 	public void viewItem() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
 		while (rs.next()) {
-			String order2 = rs.getString("order_id");
+			String order2 = rs.getString("order_id") + " " + rs.getString("customer_id") + " " + rs.getString("product_id") + " " + rs.getString("quantity");
 			System.out.println(order2);
 	}
+
 		
-		
-	}}
+	}
 		
 //	}
 //
@@ -56,5 +58,39 @@ public class OrdersDB {
 //		String delete = "DELETE FROM customers WHERE customer_id = " + customer_id + "";
 //		stmt.executeUpdate(delete);
 //	}}
+
+public void checkOrderValue(int order_id) throws SQLException {
+	
+	ResultSet rs = stmt.executeQuery ("select (items.price * orders.quantity) AS order_total FROM items, orders "
+			+ "WHERE items.product_id = orders.product_id AND order_id = " + order_id);
+	while (rs.next()) {
+		String test = rs.getString ("order_total");
+		System.out.println(test);
+		
+	}
+	
+		 
+	
+}
+
+	
+		
+		
+		
+		public void deleteCustomer(int customer_id) throws SQLException {
+			String delete = "DELETE FROM customers WHERE customer_id = " + customer_id + "";
+			stmt.executeUpdate(delete);
+		
+		
+	
+	
+	
+}
+	
+}
+		
+		
+	
+
 //
 //	

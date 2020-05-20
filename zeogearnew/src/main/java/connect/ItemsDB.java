@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import connect.ClassConfig;
+
 public class ItemsDB {
 
 	private Connection conn;
@@ -27,21 +29,38 @@ public class ItemsDB {
 
 	public void create2
 	
-	(int product_id, String name, int price) throws SQLException {
+	(String name, int price) throws SQLException {
 		this.stmt = conn.createStatement();
-		String create2 = "INSERT INTO items (product_id, name, price) VALUES (" + product_id + ", \"" + name + "\", " + price + ")";
+		String create2 = "INSERT INTO items (name, price) VALUES (\"" + name + "\", " + price + ")";
 		stmt.executeUpdate(create2);
 	} 
 
 	public void viewItem() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM items");
 		while (rs.next()) {
-			String item2 = rs.getString("name") + " " + rs.getInt("price");
+			String item2 = rs.getString("product_id") + " " + rs.getString("name") + " " + rs.getInt("price");
 			System.out.println(item2);
 	}
+
+	}
+	
+	public void calCost() throws SQLException {
+		ResultSet rs = stmt.executeQuery("SELECT \r\n" + 
+				"orders_items.order_id, \r\n" + 
+				"SUM(items.price) \r\n" + 
+				"FROM orders_items \r\n" + 
+				"JOIN items on items.product_id = orders_items.product_id \r\n" + 
+				"GROUP BY orders_items.order_id");
+		while (rs.next()) {
+			String item5 = rs.getInt("order_id") + " " + rs.getInt("price");
+			System.out.println(item5);
+		}
+	}
+}
 		
 		
-	}}
+		
+
 		
 //	}
 //
@@ -57,5 +76,5 @@ public class ItemsDB {
 //		stmt.executeUpdate(delete);
 //	}}
 //
-//	
+//		
 	

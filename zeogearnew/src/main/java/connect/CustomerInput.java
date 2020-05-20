@@ -1,7 +1,6 @@
 package connect;
 
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CustomerInput {
@@ -9,7 +8,7 @@ public class CustomerInput {
 	private static Scanner scan = new Scanner(System.in);
 	
 	private static String getAction3() {
-		System.out.println("Type 'insert' to insert an order, Type view to view orders");
+		System.out.println("Type 'insert' to insert an order, Type view to view orders, type calculate to calculate the value of an order");
 		return scan.nextLine();
 	}
 	
@@ -40,10 +39,6 @@ public class CustomerInput {
 
 				case "create": // this works!!!!!
 					
-				
-					System.out.println("Enter ID:");
-					int customer_id = scan.nextInt();
-					scan.nextLine();
 
 					System.out.println("Enter first name: ");
 					String firstname = scan.nextLine();
@@ -53,9 +48,14 @@ public class CustomerInput {
 
 					System.out.println("Enter email: ");
 					String email = scan.nextLine();
-
-
-					db.create(customer_id, firstname, lastname, email);
+					
+					System.out.println("Enter the First Line of the Address");
+					String fstlnaddress = scan.nextLine();
+					
+					System.out.println("Enter the postcode");
+					String postcode = scan.nextLine();
+					
+					db.create(firstname, lastname, email, fstlnaddress, postcode);
 					break;
 
 				case "print":
@@ -124,17 +124,13 @@ public class CustomerInput {
 
 				case "insert":
 					
-					System.out.println("Insert ID");
-					int pid = scan.nextInt();
-					scan.nextLine();
-					
 					System.out.println("Insert New Item");
 					String name = scan.nextLine();
 					
 					System.out.println("Insert Price");
 					int price = scan.nextInt();
 						
-					idb.create2(pid, name, price);
+					idb.create2(name, price);
 					break;
 				
 				case "print":
@@ -173,16 +169,35 @@ public class CustomerInput {
 
 				case "insert":
 					
-					System.out.println("Insert ID");
-					int order_id = scan.nextInt();
+					System.out.println("Customer_ID");
+					int customer_id4 = scan.nextInt();
 					scan.nextLine();
-						
-					odb.create3(order_id);
+					
+					System.out.println("Enter Product ID");
+					int product_id5 = scan.nextInt();
+					
+					
+					System.out.println("Insert Quantity ordered");
+					int quantity = scan.nextInt();
+					scan.nextLine();
+					
+					
+					odb.create3(customer_id4, product_id5, quantity);
 					break;
 				
 				case "view":
 					odb.viewItem();
 					break;
+					
+				case "calculate":
+					
+					System.out.println("Which Order do you want to calculate the value for? (Enter ID)");
+					int order_id = scan.nextInt();
+					scan.hasNextLine();
+					
+					odb.checkOrderValue(order_id);
+							
+				
 					
 				}
 
@@ -199,6 +214,18 @@ public class CustomerInput {
 			
 	}
 		
-		}
+		
+			
+			
+			
+		
+		
+		
+		
+			
+			
+			
+			
+	}
 		
 }

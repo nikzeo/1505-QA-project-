@@ -20,23 +20,19 @@ public class CustomerDB {
 		conn.close();
 	}
 
-//	public void createCustomer(String fName, String lName) throws SQLException {
-//		stmt.executeUpdate(
-//				"INSERT INTO customer (`first_name`, `last_name`)" + " VALUES ('" + fName + "', '" + lName + "')");
-//	}
-
 	public void create
 	
-	(int customer_id, String firstname, String lastname, String email) throws SQLException {
+	(String firstname, String lastname, String email, String fstlnaddress, String postcode) throws SQLException {
 		this.stmt = conn.createStatement();
-		String sql = "INSERT INTO customers (customer_id, firstname, lastname, email) VALUES ("+ customer_id + ", \"" + firstname + "\", \"" + lastname + "\", \""+ email + "\")";
+		String sql = "INSERT INTO customers (firstname, lastname, email, fstlnaddress, postcode) VALUES (\"" + firstname + "\", \"" + lastname + "\", \""+ email + "\", \"" + fstlnaddress +"\", \"" + postcode+"\")";
+		System.out.println(sql);
 		stmt.executeUpdate(sql);
 	}
 
 	public void readCustomer() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
 		while (rs.next()) {
-			String name = rs.getString("firstname") + " " + rs.getString("lastname") + " " + rs.getString("email");
+			String name = rs.getString("customer_id") + " " + rs.getString("firstname") + " " + rs.getString("lastname") + " " + rs.getString("email");
 			System.out.println(name);
 		}
 	}
