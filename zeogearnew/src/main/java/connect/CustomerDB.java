@@ -24,22 +24,21 @@ public class CustomerDB {
 		this.stmt = conn.createStatement();
 		String sql = "INSERT INTO customers (firstname, lastname, email, fstlnaddress, postcode) VALUES (\"" + firstname
 				+ "\", \"" + lastname + "\", \"" + email + "\", \"" + fstlnaddress + "\", \"" + postcode + "\")";
-		System.out.println(sql);
 		stmt.executeUpdate(sql);
 	}
 
 	public void readCustomer() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
 		while (rs.next()) {
-			String name = rs.getString("customer_id") + " " + rs.getString("firstname") + " " + rs.getString("lastname")
-					+ " " + rs.getString("email");
+			String name = rs.getString("customer_id") + "  " + rs.getString("firstname") + "  " + rs.getString("lastname")
+					+ " " + rs.getString("email") + "  " + rs.getString("fstlnaddress") + "  " + rs.getString("postcode");
 			System.out.println(name);
 		}
 	}
 
-	public void updateCustomer(int customer_id2, String firstname1, String lastname1, String email1) throws SQLException {
-		String upt = "UPDATE customers SET firstname = '" + firstname1 + "', lastname = '" + lastname1 + "', email = '"
-				+ email1 + "'WHERE customer_id = '" + customer_id2 + "'";
+	public void updateCustomer(int customer_id, String firstname, String lastname, String email, String fstlnaddress, String postcode) throws SQLException {
+		String upt = "UPDATE customers SET firstname = '" + firstname + "', lastname = '" + lastname + "', email = '"
+				+ email + "', fstlnaddress = '" + fstlnaddress + "', postcode = '" + postcode + "'WHERE customer_id = '" + customer_id + "'";
 		stmt.executeUpdate(upt);
 
 	}

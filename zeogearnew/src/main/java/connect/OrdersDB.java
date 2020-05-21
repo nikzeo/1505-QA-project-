@@ -37,8 +37,7 @@ public class OrdersDB {
 	public void viewOrder() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
 		while (rs.next()) {
-			String vieworder = rs.getString("order_id") + " " + rs.getString("customer_id") + " "
-					+ rs.getString("product_id") + " " + rs.getString("quantity");
+			String vieworder = "Order ID:   " + rs.getString ("order_id") + "\nCustomer ID:   " + rs.getString("customer_id") + "\nProduct ID:   " + rs.getString("product_id") + "\nQuantity Ordered:  " + rs.getString("quantity");
 			System.out.println(vieworder); }
 
 	}
@@ -60,7 +59,7 @@ public class OrdersDB {
 		ResultSet rs = stmt.executeQuery("select (items.price * orders.quantity) AS order_total FROM items, orders "
 				+ "WHERE items.product_id = orders.product_id AND order_id = " + order_id);
 		while (rs.next()) {
-			float test = rs.getFloat("order_total");
+			String test = "£" + rs.getFloat("order_total");
 			System.out.println(test);
 
 		}

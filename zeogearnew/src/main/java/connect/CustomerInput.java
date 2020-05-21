@@ -17,7 +17,7 @@ public class CustomerInput {
 	}
 	
 	public void showStartingSelection() throws SQLException {
-		System.out.println("Hello, Welcome to ZEOGEAR "
+		System.out.println("\nHello, Welcome to ZEOGEAR"
 				+ "\n\n -----\n     /\n   /\n /\n ----- \n\n------------------------------------------\n"
 				+ "Press 1 for Customer Related Queries \nPress 2 for Product/Item Related Queries \nPress 3 for Order Related Queries"
 				+ "\n------------------------------------------");
@@ -41,7 +41,7 @@ public class CustomerInput {
 	
 	
 	public void showCustomerQueries() throws SQLException {
-		System.out.println("Type 1 to Create a New Customer\nType 2 to View Customers\nType 3 to Delete Customers\nType 4 to Update a Customer\nType 5 to to Exit");
+		System.out.println("Type 1 to Create a New Customer\nType 2 to View Customers\nType 3 to Delete Customers\nType 4 to Update a Customer");
 		String selection = scan.nextLine();
 
 		switch (selection) {
@@ -76,17 +76,17 @@ public class CustomerInput {
 		System.out.println("Enter the First Line of the Address");
 		String fstlnaddress = scan.nextLine();
 			
-		System.out.println("Enter the postcode");
+		System.out.println("Enter the Postcode");
 		String postcode = scan.nextLine();
 			
 		cdb.create(firstname, lastname, email, fstlnaddress, postcode);
-		System.out.println("Customer successfully created");
+		System.out.println("\nCustomer Successfully Created!\n");
 		showStartingSelection();
 	}
 	
 	public void viewCustomers() throws SQLException {
 		cdb.readCustomer();
-		System.out.println("Type Y when you would like to go back to the starting selection");
+		System.out.println("\nType 'Y' when you would like to go back to the Main Menu\n");
 		
 		while(true) {
 			String result = scan.nextLine();
@@ -98,37 +98,42 @@ public class CustomerInput {
 	}
 	
 	public void deleteCustomer() throws SQLException {
-		System.out.println("Enter the customer_id:");
+		System.out.println("Enter the Customer ID:");
 		int customer_id1 = Integer.parseInt(scan.nextLine());
 		cdb.deleteCustomer(customer_id1);
-		System.out.println("Customer successfully deleted");
+		System.out.println("\nCustomer Successfully Deleted!\n");
 		showStartingSelection();
 	}
 	
 	public void updateCustomer() throws SQLException {
-		System.out.println("Enter ID ");
-		int customer_id2 = scan.nextInt();
+		System.out.println("Enter Customer ID ");
+		int customer_id = scan.nextInt();
 		scan.nextLine();
 			
 		System.out.println("Enter Updated First Name ");
-		String firstname1 = scan.nextLine();
+		String firstname = scan.nextLine();
 			
 		System.out.println("Enter Updated Last Name ");
-		String lastname1 = scan.nextLine();
+		String lastname = scan.nextLine();
 			
 		System.out.println("Enter Updated Email ");
-		String email1 = scan.nextLine();
+		String email = scan.nextLine();
+		
+		System.out.println("Enter Updated First Line of the Address");
+		String fstlnaddress = scan.nextLine();
+			
+		System.out.println("Enter Updated Postcode");
+		String postcode = scan.nextLine();
 
-		cdb.updateCustomer(customer_id2, firstname1, lastname1, email1);	
+		cdb.updateCustomer(customer_id, firstname, lastname, email, fstlnaddress, postcode);	
 
-		System.out.println("Update Successful!");
+		System.out.println("\nUpdate Successful!\n");
 		showStartingSelection();
 	}
 
 		
 	public void showItemQueries() throws SQLException {
-		// TODO Auto-generated method stub
-		System.out.println("Type 1 to Create a New Item\nType 2 to View Items\nType 3 to Delete Items\nType 4 to Update an Item\nType 5 to to Exit");
+		System.out.println("Type 1 to Create a New Item\nType 2 to View Items\nType 3 to Delete Items\nType 4 to Update an Item");
 		String selection = scan.nextLine();
 
 		switch (selection) {
@@ -156,22 +161,23 @@ public class CustomerInput {
 		System.out.println("Insert New Item ");
 		String name = scan.nextLine();
 		
-		System.out.println("Insert Price ");
-		float price = scan.nextInt(); 
-					
+		System.out.println("Insert Price (£) ");
+		double price = scan.nextDouble(); 
+		scan.nextLine();
+		
 		idb.createitem(name, price);
-		System.out.println("Item Succesfully Created");
+		System.out.println("\nItem Succesfully Created!\n");
 		showStartingSelection();
 		
 	}
 	
 	public void viewItems() throws SQLException {
 		idb.viewItem();
-		System.out.println("Type y to go back to the starting selection");
+		System.out.println("\nType 'Y' to go back to the Main Menu\n");
 			
 		while(true) {
 			String itemresult = scan.nextLine();
-			if (itemresult.equals("y")) {
+			if (itemresult.equals("Y") || itemresult.equals("y")) {
 				showStartingSelection();
 				break;
 			}
@@ -182,7 +188,7 @@ public class CustomerInput {
 		System.out.println("Enter Product_ID");
 		int product_id = Integer.parseInt(scan.nextLine());
 		idb.deleteItem(product_id);
-		System.out.println("Item Successfully Deleted");
+		System.out.println("\nItem Successfully Deleted!\n");
 		showStartingSelection();
 	}
 	
@@ -201,7 +207,7 @@ public class CustomerInput {
 		
 		idb.updateItem(product_id, name, price);
 		
-		System.out.println("Update Succesfull!");
+		System.out.println("\nUpdate Succesfull!\n");
 
 	}
 		
@@ -236,7 +242,7 @@ public class CustomerInput {
 		
 		
 	public void createOrder() throws SQLException {
-			System.out.println("Enter Relevant Customer_ID");
+			System.out.println("Enter Customer's ID");
 			int customer_id = scan.nextInt();
 			scan.nextLine();
 		
@@ -248,18 +254,18 @@ public class CustomerInput {
 			scan.nextLine();
 				
 			odb.createOrder(customer_id, product_id, quantity);
-			System.out.println("Customer Successfully Created");
+			System.out.println("\nOrder Successfully Created\n");
 			showStartingSelection(); 
 			
 	}
 			
 	public void viewOrder()	throws SQLException {
 		odb.viewOrder();
-		System.out.println("Type y to get back to the starting selection");
+		System.out.println("\nType 'Y' to get back to the Main Menu\n");
 		
 		while(true) {
 			String orderresult = scan.nextLine();
-			if (orderresult.equals("y")) {
+			if (orderresult.equals("Y") || orderresult.equals("y")) {
 				showStartingSelection();
 				break;
 				
@@ -272,13 +278,13 @@ public class CustomerInput {
 		System.out.println("Enter the order_id:");
 			int order_id = Integer.parseInt(scan.nextLine());
 			odb.deleteOrder(order_id);
-		System.out.println("Order successfully deleted");
+		System.out.println("\nOrder Successfully Deleted\n");
 		
-		System.out.println("Type y to get back to the starting selection");
+		System.out.println("\nType 'Y' to get back to the Main Menu\n");
 		
 		while(true) {
 			String orderresult = scan.nextLine();
-			if (orderresult.equals("y")) {
+			if (orderresult.equals("Y") || orderresult.equals("y")) {
 				showStartingSelection();
 				break;
 			
@@ -302,7 +308,7 @@ public class CustomerInput {
 		
 		odb.updateOrder(order_id, product_id, quantity);
 		
-		System.out.println("Update Succesful");	
+		System.out.println("\nUpdate Succesful!\n");	
 		showStartingSelection();
 	
 	}
@@ -312,9 +318,21 @@ public class CustomerInput {
 		int order_id = scan.nextInt();
 		scan.nextLine();
 		odb.calculateOrder(order_id);
+		
+		System.out.println("\nType 'Y' to get back to the Main Menu\n");
+		
+		while(true) {
+			String orderresult = scan.nextLine();
+			if (orderresult.equals("Y") || orderresult.equals("y")) {
+				showStartingSelection();
+				break;
 	
 		
+			}
 		}
+
 	}
+	
+}
 		
 

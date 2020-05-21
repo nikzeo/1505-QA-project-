@@ -24,7 +24,7 @@ public class ItemsDB {
 
 	public void createitem
 	
-	(String name, float price) throws SQLException {
+	(String name, double price) throws SQLException {
 		this.stmt = conn.createStatement();
 		String createitem = "INSERT INTO items (name, price) VALUES (\"" + name + "\", " + price + ")";
 		stmt.executeUpdate(createitem);
@@ -33,7 +33,7 @@ public class ItemsDB {
 	public void viewItem() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM items");
 		while (rs.next()) {
-			String viewitem = rs.getString("product_id") + " " + rs.getString("name") + " " + rs.getFloat("price");
+			String viewitem = rs.getString("product_id") + " " + rs.getString("name") + "\n£" + rs.getDouble("price");
 			System.out.println(viewitem); }
 	}
 
