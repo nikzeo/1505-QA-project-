@@ -28,10 +28,10 @@ public class CustomerInput {
 				showCustomerQueries();
 				break;
 			case "2":
-				getItemInput();
+				showItemQueries();
 				break;
 			case "3":
-				getOrderInput();
+				showOrderQueries();
 				break;
 			default: 
 				System.out.println("Try again!");
@@ -126,80 +126,195 @@ public class CustomerInput {
 	}
 
 		
-	public static void getItemInput() throws SQLException {
+	public void showItemQueries() throws SQLException {
 		// TODO Auto-generated method stub
-		ItemsDB idb = new ItemsDB();
+		System.out.println("Type 1 to Create a New Item\nType 2 to View Items\nType 3 to Delete Items\nType 4 to Update an Item\nType 5 to to Exit");
+		String selection = scan.nextLine();
 
-		try {
-			
-			System.out.println("Type 'insert' to create a new item, Type 'print' to print items"  );
-			String selection = scan.nextLine();
-
-			do {
-
-				switch (selection) {
-
-				case "insert":
-					
-					System.out.println("Insert New Item");
-					String name = scan.nextLine();
-					
-					System.out.println("Insert Price");
-					int price = scan.nextInt();
-						
-					idb.create2(name, price);
-					break;
+		switch (selection) {
+			case "1":
+				createItem();
+				break;
+			case "2":
+				viewItems();
+				break;
+			case "3":
+				deleteItem();
+				break;
+			case "4":
+				updateItem();
+				break;
+			default:
+				System.out.println("Try again!");
+				showItemQueries();
 				
-				case "print":
-					idb.viewItem();
-					break;
+			}
+	}
 					
-				}
+	
+	public void createItem() throws SQLException {
+		System.out.println("Insert New Item ");
+		String name = scan.nextLine();
+		
+		System.out.println("Insert Price ");
+		float price = scan.nextInt(); 
+					
+		idb.createitem(name, price);
+		System.out.println("Item Succesfully Created");
+		showStartingSelection();
+		
+	}
+	
+	public void viewItems() throws SQLException {
+		idb.viewItem();
+		System.out.println("Type y to go back to the starting selection");
+			
+		while(true) {
+			String itemresult = scan.nextLine();
+			if (itemresult.equals("y")) {
+				showStartingSelection();
+				break;
+			}
+		}	
+	}	
+	
+	public void deleteItem() throws SQLException {
+		System.out.println("Enter Product_ID");
+		int product_id = Integer.parseInt(scan.nextLine());
+		idb.deleteItem(product_id);
+		System.out.println("Item Successfully Deleted");
+		showStartingSelection();
+	}
+	
+	
+	public void updateItem() throws SQLException {
+		System.out.println("Enter Product_ID");
+		int product_id = scan.nextInt();
+		scan.nextLine();
+		
+		System.out.println("Enter Updated Name");
+		String name = scan.nextLine();
+		
+		System.out.println("Enter Updated Price");
+		float price = scan.nextInt();
+		scan.nextLine();
+		
+		idb.updateItem(product_id, name, price);
+		
+		System.out.println("Update Succesfull!");
 
-				selection = getAction2();
+	}
+		
+	public void showOrderQueries() throws SQLException {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Type 1 to Create a New Order\nType 2 to View Orders\nType 3 to Delete Order\nType 4 to Update an Order\nType 5 to to Calculate an Order Value");
+		String selection = scan.nextLine();
+		
+		switch (selection) {
+			case "1":
+				createOrder();
+				break;
+			case "2":
+				viewOrder();
+				break;
+			case "3":
+				deleteOrder();
+				break;
+			case "4":
+				updateOrder();
+				break;
+			case "5":
+				calculateOrder();
+				break;
 
-			} while (!selection.equals("quit"));
-			System.out.println("bye");
-		} finally {
-//			scan.close();
-//			idb.close(); 
+			default:
+				System.out.println("Try again!");
+				showItemQueries(); }
+			
+		}	
+		
+		
+	public void createOrder() throws SQLException {
+			System.out.println("Enter Relevant Customer_ID");
+			int customer_id = scan.nextInt();
+			scan.nextLine();
+		
+			System.out.println("Enter Relevant Product ID");
+			int product_id = scan.nextInt();
+		
+			System.out.println("Insert Quantity ordered");
+			int quantity = scan.nextInt();
+			scan.nextLine();
+				
+			odb.createOrder(customer_id, product_id, quantity);
+			System.out.println("Customer Successfully Created");
+			showStartingSelection(); 
+			
+	}
+			
+	public void viewOrder()	throws SQLException {
+		odb.viewOrder();
+		System.out.println("Type y to get back to the starting selection");
+		
+		while(true) {
+			String orderresult = scan.nextLine();
+			if (orderresult.equals("y")) {
+				showStartingSelection();
+				break;
+				
+			}
+		}		
+	}
+	
+
+	public void deleteOrder() throws SQLException {
+		System.out.println("Enter the order_id:");
+			int order_id = Integer.parseInt(scan.nextLine());
+			odb.deleteOrder(order_id);
+		System.out.println("Order successfully deleted");
+		
+		System.out.println("Type y to get back to the starting selection");
+		
+		while(true) {
+			String orderresult = scan.nextLine();
+			if (orderresult.equals("y")) {
+				showStartingSelection();
+				break;
+			
+			}
+			
+		}	
+	}
+	
+	public void updateOrder() throws SQLException {
+		System.out.println("Enter Order ID");
+		int order_id = scan.nextInt();
+		scan.nextLine();
+		
+		System.out.println("Enter Product ID");
+		int product_id = scan.nextInt();
+		scan.nextLine();
+		
+		System.out.println("Enter Quantity");
+		int quantity = scan.nextInt();
+		scan.nextLine();
+		
+		odb.updateOrder(order_id, product_id, quantity);
+		
+		System.out.println("Update Succesful");	
+		showStartingSelection();
+	
+	}
+	
+	public void calculateOrder()throws SQLException {
+		System.out.println("Enter Order_Id you wish to calculate the value for?");
+		int order_id = scan.nextInt();
+		scan.nextLine();
+		odb.calculateOrder(order_id);
+	
+		
 		}
 	}
 		
-		void getOrderInput() throws SQLException {
-		// TODO Auto-generated method stub
-		
-			OrdersDB odb = new OrdersDB();
-		
-			System.out.println("Type 'insert' to insert an order, Type view to view orders, type calculate to calculate the value of an order");
-			String selection = scan.nextLine();
 
-			switch (selection) {
-				case "insert":		
-					System.out.println("Customer_ID");
-					int customer_id4 = scan.nextInt();
-					scan.nextLine();
-					
-					System.out.println("Enter Product ID");
-					int product_id5 = scan.nextInt();
-					
-					System.out.println("Insert Quantity ordered");
-					int quantity = scan.nextInt();
-					scan.nextLine();
-					
-					odb.create3(customer_id4, product_id5, quantity);
-					break;
-				
-				case "view":
-					odb.viewItem();
-					break;
-					
-				case "calculate":
-					System.out.println("Which Order do you want to calculate the value for? (Enter ID)");
-					int order_id = scan.nextInt();
-					scan.hasNextLine();
-					odb.checkOrderValue(order_id);	
-			}
-		}
-		
-}

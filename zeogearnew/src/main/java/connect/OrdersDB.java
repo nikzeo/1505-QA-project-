@@ -27,55 +27,45 @@ public class OrdersDB {
 //				"INSERT INTO customer (`first_name`, `last_name`)" + " VALUES ('" + fName + "', '" + lName + "')");
 //	}
 
-	public void create3(int customer_id, int product_id, int quantity) throws SQLException {
+	public void createOrder(int customer_id, int product_id, int quantity) throws SQLException {
 		this.stmt = conn.createStatement();
-		String create3 = "INSERT INTO orders (customer_id, product_id, quantity) VALUES (" + customer_id + ", "
+		String createorder = "INSERT INTO orders (customer_id, product_id, quantity) VALUES (" + customer_id + ", "
 				+ product_id + "," + quantity + ")";
-		stmt.executeUpdate(create3);
+		stmt.executeUpdate(createorder);
 	}
 
-	public void viewItem() throws SQLException {
+	public void viewOrder() throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
 		while (rs.next()) {
-			String order2 = rs.getString("order_id") + " " + rs.getString("customer_id") + " "
+			String vieworder = rs.getString("order_id") + " " + rs.getString("customer_id") + " "
 					+ rs.getString("product_id") + " " + rs.getString("quantity");
-			System.out.println(order2);
-		}
+			System.out.println(vieworder); }
 
 	}
+	
+	public void deleteOrder (int order_id) throws SQLException {
+		String deleteorder = "DELETE FROM orders WHERE order_id = " + order_id +"";
+		stmt.executeUpdate(deleteorder);
+	
+	}
+	
+	public void updateOrder(int order_id, int product_id, int quantity) throws SQLException {
+		String updateorder = "UPDATE orders SET order_id = '" + order_id + "', product_id = '" + product_id + "', quantity = '"
+				+ quantity + "'WHERE order_id = '" + order_id + "'";
+		stmt.executeUpdate(updateorder);
+	}
 
-//	}
-//
-//	public void updateCustomer(int customer_id2, String firstname1, String lastname1, String email1) throws SQLException {
-//		
-//		String upt = "UPDATE customers SET firstname = '" + firstname1 + "', lastname = '" + lastname1 + "', email = '" + email1 + "'WHERE customer_id = '" + customer_id2 + "'";    
-//		stmt.executeUpdate(upt); 
-//
-//	}
-//			
-//	public void deleteCustomer(int customer_id) throws SQLException {
-//		String delete = "DELETE FROM customers WHERE customer_id = " + customer_id + "";
-//		stmt.executeUpdate(delete);
-//	}}
-
-	public void checkOrderValue(int order_id) throws SQLException {
+	public void calculateOrder(int order_id) throws SQLException {
 
 		ResultSet rs = stmt.executeQuery("select (items.price * orders.quantity) AS order_total FROM items, orders "
 				+ "WHERE items.product_id = orders.product_id AND order_id = " + order_id);
 		while (rs.next()) {
-			String test = rs.getString("order_total");
+			float test = rs.getFloat("order_total");
 			System.out.println(test);
 
 		}
 
 	}
-
-	public void deleteCustomer(int customer_id) throws SQLException {
-		String delete = "DELETE FROM customers WHERE customer_id = " + customer_id + "";
-		stmt.executeUpdate(delete);
-
-	}
-
 }
 
 //
