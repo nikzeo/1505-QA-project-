@@ -21,7 +21,6 @@ public class CustomerDB {
 	}
 
 	public void create(String firstname, String lastname, String email, String fstlnaddress, String postcode) throws SQLException {
-		this.stmt = conn.createStatement();
 		String sql = "INSERT INTO customers (firstname, lastname, email, fstlnaddress, postcode) VALUES (\"" + firstname
 				+ "\", \"" + lastname + "\", \"" + email + "\", \"" + fstlnaddress + "\", \"" + postcode + "\")";
 		stmt.executeUpdate(sql);
