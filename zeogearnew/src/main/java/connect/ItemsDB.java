@@ -36,9 +36,8 @@ public class ItemsDB {
 		}
 	}
 
-	public void updateItem(int product_id, String name, float price) throws SQLException {
-		String updateitem = "UPDATE items SET name = '" + name + "', " + price + " WHERE product_id = '" + product_id
-				+ "'";
+	public void updateItem(int product_id, String name, double price) throws SQLException {
+		String updateitem = "UPDATE items SET name = '" + name + "', price = '" + price + "' WHERE product_id = '" + product_id +"'";
 		stmt.executeUpdate(updateitem);
 	}
 

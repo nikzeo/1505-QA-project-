@@ -202,12 +202,13 @@ public class CustomerInput {
 		String name = scan.nextLine();
 		
 		System.out.println("Enter Updated Price");
-		float price = scan.nextInt();
+		double price = scan.nextInt();
 		scan.nextLine();
-		
+	
 		idb.updateItem(product_id, name, price);
 		
 		System.out.println("\nUpdate Succesfull!\n");
+		showStartingSelection();
 
 	}
 		
